@@ -52,7 +52,7 @@ const TestimonialsSection: React.FC = () => {
 
   return (
     <section id="testimonials" ref={ref} className="py-20 bg-primary-50">
-      <div className="container mx-auto px-4">
+      <div className="container-custom mx-auto px-4">
         <div className="text-center mb-12 testimonial-element">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Customer Experiences
@@ -136,7 +136,7 @@ const TestimonialsSection: React.FC = () => {
           </div>
         </div>
         
-        <div className="mt-16 bg-white rounded-lg shadow-md p-8 testimonial-element">
+        <div className="mt-16 max-w-4xl mx-auto bg-white rounded-lg shadow-md py-4">
           <div className="text-center mb-8">
             <h3 className="font-heading text-2xl font-semibold text-gray-900 mb-2">
               Join Our Satisfied Customers

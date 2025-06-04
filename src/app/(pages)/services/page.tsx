@@ -11,28 +11,14 @@ import { ArrowRight } from 'lucide-react';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Services() {
-  useEffect(() => {
-    gsap.from('.service-animate', {
-      y: 30,
-      opacity: 0,
-      stagger: 0.2,
-      duration: 0.8,
-      ease: 'power2.out',
-      scrollTrigger: {
-        trigger: '.services-section',
-        start: 'top 80%',
-        end: 'bottom 20%',
-        toggleActions: 'play none none reverse'
-      }
-    });
-  }, []);
+
 
   return (
     <>
       <Header />
       <main className="pt-20">
-        <section className="services-section py-20 bg-gradient-to-b from-primary-50 to-white">
-          <div className="container mx-auto px-4">
+        <section className="services-section py-20 ">
+          <div className="container-custom mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center mb-16 service-animate">
               <h1 className="font-heading text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Our Services

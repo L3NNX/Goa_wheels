@@ -49,7 +49,7 @@ const VehiclesSection: React.FC = () => {
 
   return (
     <section id="vehicles" ref={ref} className="py-20">
-      <div className="container mx-auto px-4">
+      <div className="container-custom mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Our Vehicle Fleet

@@ -10,7 +10,7 @@ const BookingSection: React.FC = () => {
   const [bookingType, setBookingType] = useState<BookingType>('pickup');
   const [vehicleCategory, setVehicleCategory] = useState<VehicleCategory>('Car');
   const [showSuccess, setShowSuccess] = useState(false);
-  
+
   const { ref, inView } = useInView({
     threshold: 0.2,
     triggerOnce: true,
@@ -31,7 +31,7 @@ const BookingSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setShowSuccess(true);
-    
+
     // Hide success message after 5 seconds
     setTimeout(() => {
       setShowSuccess(false);
@@ -40,7 +40,7 @@ const BookingSection: React.FC = () => {
 
   return (
     <section id="book-now" ref={ref} className="py-20">
-      <div className="container mx-auto px-4">
+      <div className="contcontainer-customainer mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 booking-element">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -63,27 +63,25 @@ const BookingSection: React.FC = () => {
                     </button>
                   </div>
                 )}
-              
+
                 <div className="flex space-x-4 mb-8">
                   <button
                     type="button"
                     onClick={() => setBookingType('pickup')}
-                    className={`flex-1 py-3 rounded-md transition-all ${
-                      bookingType === 'pickup'
+                    className={`flex-1 py-3 rounded-md transition-all ${bookingType === 'pickup'
                         ? 'bg-primary-600 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
+                      }`}
                   >
                     Pickup & Drop
                   </button>
                   <button
                     type="button"
                     onClick={() => setBookingType('rental')}
-                    className={`flex-1 py-3 rounded-md transition-all ${
-                      bookingType === 'rental'
+                    className={`flex-1 py-3 rounded-md transition-all ${bookingType === 'rental'
                         ? 'bg-primary-600 text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
+                      }`}
                   >
                     Vehicle Rental
                   </button>
@@ -132,7 +130,7 @@ const BookingSection: React.FC = () => {
                         </label>
                         <div className="relative">
                           <Car className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                          <select 
+                          <select
                             className="bg-gray-50 border border-gray-200 rounded-md py-3 pl-10 pr-4 w-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                             value={vehicleCategory}
                             onChange={(e) => setVehicleCategory(e.target.value as VehicleCategory)}
@@ -154,8 +152,8 @@ const BookingSection: React.FC = () => {
                       </label>
                       <div className="relative">
                         <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                        <input 
-                          type="date" 
+                        <input
+                          type="date"
                           className="bg-gray-50 border border-gray-200 rounded-md py-3 pl-10 pr-4 w-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                       </div>
@@ -166,8 +164,8 @@ const BookingSection: React.FC = () => {
                       </label>
                       <div className="relative">
                         <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-                        <input 
-                          type="time" 
+                        <input
+                          type="time"
                           className="bg-gray-50 border border-gray-200 rounded-md py-3 pl-10 pr-4 w-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                         />
                       </div>
@@ -209,8 +207,8 @@ const BookingSection: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Name
                       </label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         placeholder="Your full name"
                         className="bg-gray-50 border border-gray-200 rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       />
@@ -219,8 +217,8 @@ const BookingSection: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Phone Number
                       </label>
-                      <input 
-                        type="tel" 
+                      <input
+                        type="tel"
                         placeholder="Your contact number"
                         className="bg-gray-50 border border-gray-200 rounded-md py-3 px-4 w-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                       />
@@ -259,8 +257,8 @@ const BookingSection: React.FC = () => {
                       {bookingType === 'pickup' ? 'Pickup & Drop Service' : 'Vehicle Rental'}
                     </h4>
                     <p className="text-sm opacity-90">
-                      {bookingType === 'pickup' 
-                        ? 'Our comfortable and reliable pickup and drop service across Goa.' 
+                      {bookingType === 'pickup'
+                        ? 'Our comfortable and reliable pickup and drop service across Goa.'
                         : `Rent a ${vehicleCategory.toLowerCase()} and explore Goa at your own pace.`}
                     </p>
                   </div>

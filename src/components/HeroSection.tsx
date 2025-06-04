@@ -16,9 +16,9 @@ const HeroSection: React.FC = () => {
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-primary-700/85 to-primary-900/70"></div>
+      <div className="absolute inset-0 bg-gradient-to-r"></div>
       
-      <div className="container relative z-10">
+      <div className="container-custom relative z-10">
         <div ref={contentRef} className="max-w-3xl hero-text text-white">
           <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Explore Goa's Beauty <br/> 
