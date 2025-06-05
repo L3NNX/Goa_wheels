@@ -21,26 +21,39 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
-    @apply font-semibold text-[#004d40]; /* Deep teal */
+    @apply font-semibold text-[#004d40];
   }
 }
 
 @layer components {
-  .btn {
-    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    .btn {
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold rounded-lg shadow-md transition duration-200;
   }
 
   .btn-primary {
-    @apply bg-[#00897b] text-white hover:bg-[#00695c] focus:ring-[#004d40];
+    @apply bg-yellow-400 text-white hover:bg-yellow-500 ;
   }
 
   .btn-secondary {
-    @apply bg-[#ffd54f] text-black hover:bg-[#ffca28] focus:ring-[#ffb300];
+    @apply bg-white text-emerald-700 border border-emerald-600 hover:bg-emerald-50 ;
   }
 
   .btn-outline {
-    @apply border-2 border-[#00897b] text-[#00897b] hover:bg-[#e0f2f1] focus:ring-[#004d40];
+    @apply border border-emerald-600 text-emerald-700 bg-white hover:bg-emerald-100 ;
   }
+
+  .btn-filter {
+    @apply px-4 py-1.5 text-sm font-medium rounded-full border transition duration-200;
+  }
+
+  .btn-filter-active {
+    @apply bg-emerald-700 text-white shadow-md;
+  }
+
+  .btn-filter-inactive {
+    @apply border-emerald-700 text-emerald-700 hover:bg-emerald-50;
+  }
+  
 
   .container-custom {
     @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
@@ -60,15 +73,6 @@
 
   .card-hover {
     @apply transition-transform duration-300 ease-in-out hover:-translate-y-1 hover:shadow-lg;
-  }
-
-  .animate-float {
-    animation: float 2s ease-in-out infinite;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
   }
 
   .mobile-menu-enter {
@@ -92,31 +96,19 @@
     transform: translateY(-10px);
     transition: opacity 150ms ease-in, transform 150ms ease-in;
   }
-
-  .animate-marquee {
-    animation: marquee 30s linear infinite;
-  }
-
-  .animate-marquee-reverse {
-    animation: marquee-reverse 30s linear infinite;
-  }
-
-  @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
-  }
-
-  @keyframes marquee-reverse {
-    0% { transform: translateX(-50%); }
-    100% { transform: translateX(0%); }
-  }
-
-  .mask-fade {
-    mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-  }
 }
 
+/* Animations */
+.animate-float {
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Parallax effect */
 .parallax-bg {
   background-attachment: fixed;
   background-position: center;

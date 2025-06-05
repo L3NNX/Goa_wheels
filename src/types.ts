@@ -34,4 +34,9 @@ export interface LocationType {
   region: string;
   imageUrl: string;
   popular: boolean;
+   iframeSrc?: string;
+   coordinates: {
+    lat: number;
+    lng: number;
+  };
 }

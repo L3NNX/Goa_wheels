@@ -1,92 +1,98 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import gsap from 'gsap';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { motion } from 'framer-motion';
+import { MapPin, Navigation, Phone, Mail } from 'lucide-react';
 import { locations } from '../data/locations';
-import { MapPin } from 'lucide-react';
+import { LocationType } from '../types';
+
 
 const LocationsSection: React.FC = () => {
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-  });
+  const [activeLocation, setActiveLocation] = useState(locations[0]);
 
-  useEffect(() => {
-    if (inView) {
-      gsap.to('.location-card', {
-        y: 0,
-        opacity: 1,
-        stagger: 0.1,
-        duration: 0.7,
-        ease: 'power2.out',
-      });
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
     }
-  }, [inView]);
+  };
 
-  // Separate popular and non-popular locations
-  const popularLocations = locations.filter(loc => loc.popular);
-  const otherLocations = locations.filter(loc => !loc.popular);
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.5 }
+    }
+  };
 
+  const mapContainerClass = "w-full h-[400px] rounded-xl shadow-card border-0";
+const getIframeSrc = (loc: typeof locations[0]) => {
+    if (loc.iframeSrc) return loc.iframeSrc;
+    return `https://maps.google.com/maps?q=${loc.coordinates.lat},${loc.coordinates.lng}&z=15&output=embed`;
+  };
   return (
-    <section id="locations" ref={ref} className="py-20 bg-gray-50">
-      <div className="container-custom mx-auto px-4">
+    <section id="locations" className="section bg-gradient-to-b from-gray-50 to-white">
+      <div className="container-custom">
         <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Service Locations
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            We cover all of Goa's popular destinations. Book our services for pickup, drop, or rentals at these locations.
-          </p>
+         <motion.h2
+            className="section-title"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            Our Service Locations
+          </motion.h2>
+          <motion.p
+            className="text-gray-600 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Explore our extensive coverage across Goa. Whether you're heading to popular beaches or hidden gems,
+            we've got your transport needs covered.
+          </motion.p>
         </div>
 
-        <div className="mb-10">
-          <h3 className="font-heading text-xl font-semibold text-gray-800 mb-6 flex items-center">
-            <MapPin className="h-5 w-5 text-accent-500 mr-2" /> Popular Destinations
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {popularLocations.map((location) => (
-              <div
-                key={location.id}
-                className="location-card bg-white rounded-lg shadow-md overflow-hidden transform translate-y-8 opacity-0 hover:shadow-lg transition-all duration-300"
-              >
-                <div className="h-48 overflow-hidden">
-                  <img
-                    src={location.imageUrl}
-                    alt={location.name}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                  />
-                </div>
-                <div className="p-5">
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-heading font-semibold text-lg text-gray-900">
-                      {location.name}
-                    </h4>
-                    <span className="bg-primary-50 text-primary-600 text-xs px-2 py-1 rounded">
-                      {location.region}
-                    </span>
-                  </div>
-                  <button
-                    className="mt-4 w-full py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition-all"
-                  >
-                    See Services
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <motion.div
+            className="overflow-hidden rounded-xl shadow-card"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <iframe
+              src={getIframeSrc(activeLocation)}
+              className={mapContainerClass}
+              loading="lazy"
+              allowFullScreen
+              title={`Map of ${activeLocation.name}`}
+            />
+          </motion.div>
 
-        <div>
-          <h3 className="font-heading text-xl font-semibold text-gray-800 mb-6 flex items-center">
-            <MapPin className="h-5 w-5 text-primary-500 mr-2" /> Other Destinations
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {otherLocations.map((location) => (
-              <div
+                <motion.div
+            className="space-y-6"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {locations.map((location) => (
+              <motion.div
                 key={location.id}
-                className="location-card bg-white rounded-lg shadow-sm p-4 transform translate-y-8 opacity-0 hover:shadow-md transition-all duration-300"
+                variants={itemVariants}
+                className={`card card-hover p-4 cursor-pointer ${
+                  activeLocation.id === location.id ? 'border-2 border-primary-500' : ''
+                }`}
+                onClick={() => setActiveLocation(location)}
               >
-                <div className="flex items-center">
-                  <div className="h-16 w-16 rounded-md overflow-hidden mr-3">
+                <div className="flex items-center space-x-4">
+                  <div className="h-16 w-16 rounded-lg overflow-hidden">
                     <img
                       src={location.imageUrl}
                       alt={location.name}
@@ -94,27 +100,64 @@ const LocationsSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">
-                      {location.name}
-                    </h4>
-                    <span className="text-sm text-primary-600">
-                      {location.region}
-                    </span>
+                    <h3 className="font-heading text-lg font-semibold">{location.name}</h3>
+                    <p className="text-gray-600">{location.region}</p>
+                    {location.popular && (
+                      <span className="inline-block mt-1 text-xs font-medium text-primary-600 bg-primary-50 px-2 py-1 rounded-full">
+                        Popular Destination
+                      </span>
+                    )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-6">
-            Don't see your destination? We provide services across Goa, even to less frequented locations.
-          </p>
-          <button className="bg-primary-600 hover:bg-primary-700 text-white font-medium px-6 py-3 rounded-md transition-all hover:shadow-lg">
-            Check Custom Locations
-          </button>
-        </div>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={itemVariants} className="card p-6">
+            <Navigation className="h-8 w-8 text-primary-500 mb-4" />
+            <h3 className="font-heading text-lg font-semibold mb-2">Coverage Area</h3>
+            <p className="text-gray-600">
+              We operate across all major locations in North and South Goa, ensuring comprehensive coverage.
+            </p>
+          </motion.div>
+
+          <motion.div variants={itemVariants} className="card p-6">
+            <Phone className="h-8 w-8 text-primary-500 mb-4" />
+            <h3 className="font-heading text-lg font-semibold mb-2">24/7 Support</h3>
+            <p className="text-gray-600">
+              Our team is available round the clock to assist you with your transport needs.
+            </p>
+          </motion.div>
+
+          <motion.div variants={itemVariants} className="card p-6">
+            <Mail className="h-8 w-8 text-primary-500 mb-4" />
+            <h3 className="font-heading text-lg font-semibold mb-2">Easy Booking</h3>
+            <p className="text-gray-600">
+              Book your ride instantly through our website or contact our support team.
+            </p>
+          </motion.div>
+        </motion.div>
+
+        <motion.div 
+          className="mt-12 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <a 
+            href="#book-now" 
+            className="btn btn-primary"
+          >
+            Book Your Ride Now
+          </a>
+        </motion.div>
       </div>
     </section>
   );
