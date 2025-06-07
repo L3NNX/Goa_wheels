@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown, Car, MapPin, Phone } from 'lucide-react';
 import Link from 'next/link';
 import gsap from 'gsap';
@@ -6,6 +6,32 @@ import gsap from 'gsap';
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isRentalsOpen, setIsRentalsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    // Close on outside click
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsRentalsOpen(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,10 +46,9 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white text-black shadow-md py-2' : 'bg-transparent py-4'
-      }`}
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white text-black shadow-md py-2' : 'bg-transparent py-4'
+        }`}
     >
       <div className="container-custom mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between">
@@ -36,32 +61,66 @@ const Header: React.FC = () => {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className={`header-anim font-medium text-sm transition ${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-black hover:text-secondary-300'}`}
             >
               About
             </Link>
-            <Link 
-              href="/services" 
+            <Link
+              href="/services"
               className={`header-anim font-medium text-sm transition ${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-black hover:text-secondary-300'}`}
             >
               Services
             </Link>
-            <Link 
-              href="/faq" 
+            <Link
+              href="/faq"
               className={`header-anim font-medium text-sm transition ${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-black hover:text-secondary-300'}`}
             >
               FAQ
             </Link>
-            <Link 
-              href="/contact" 
-              className={`header-anim font-medium text-sm transition ${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-black hover:text-secondary-300'}`}
-            >
-              Contact
-            </Link>
-            <Link 
-              href="#book-now" 
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsRentalsOpen(!isRentalsOpen)}
+                className={`header-anim font-medium text-sm transition flex items-center ${isScrolled ? 'text-gray-700 hover:text-primary-600' : 'text-black hover:text-secondary-300'}`}
+              >
+                Rentals
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 transform transition-transform duration-200 ${isRentalsOpen ? 'rotate-180' : 'rotate-0'}`}
+                />
+              </button>
+
+              {/* Dropdown menu */}
+              <div
+                className={`absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 transform transition-all duration-200 origin-top ${isRentalsOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0 pointer-events-none'
+                  }`}
+              >
+                <Link
+                  href="/rentals/taxi"
+                  onClick={() => setIsRentalsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                >
+                  Taxi Rental
+                </Link>
+                <Link
+                  href="/rentals/self-drive"
+                  onClick={() => setIsRentalsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                >
+                  Self Drive Cars
+                </Link>
+                <Link
+                  href="/rentals/airport"
+                  onClick={() => setIsRentalsOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
+                >
+                  Airport Transfer
+                </Link>
+              </div>
+            </div>
+
+            <Link
+              href="#book-now"
               className="header-anim bg-accent-400 hover:bg-accent-500 text-white font-medium px-4 py-2 rounded-md transition-all hover:shadow-lg"
             >
               Book Now
@@ -69,7 +128,7 @@ const Header: React.FC = () => {
           </nav>
 
           {/* Mobile menu button */}
-          <button 
+          <button
             onClick={toggleMenu}
             className="md:hidden text-gray-500 focus:outline-none"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -85,36 +144,36 @@ const Header: React.FC = () => {
         {/* Mobile menu */}
         <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'} mt-4 pb-4`}>
           <div className="flex flex-col space-y-4 bg-white p-4 rounded-lg shadow-lg">
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className="font-medium text-sm text-gray-700 hover:text-primary-600 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               About
             </Link>
-            <Link 
-              href="/services" 
+            <Link
+              href="/services"
               className="font-medium text-sm text-gray-700 hover:text-primary-600 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               Services
             </Link>
-            <Link 
-              href="/faq" 
+            <Link
+              href="/faq"
               className="font-medium text-sm text-gray-700 hover:text-primary-600 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               FAQ
             </Link>
-            <Link 
-              href="/contact" 
+            <Link
+              href="/contact"
               className="font-medium text-sm text-gray-700 hover:text-primary-600 transition"
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
             </Link>
-            <Link 
-              href="#book-now" 
+            <Link
+              href="#book-now"
               className="bg-accent-400 hover:bg-accent-500 text-white font-medium px-4 py-2 rounded-md text-center transition-all hover:shadow-lg"
               onClick={() => setIsMenuOpen(false)}
             >

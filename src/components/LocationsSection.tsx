@@ -120,7 +120,7 @@ const getIframeSrc = (loc: typeof locations[0]) => {
           initial="hidden"
           animate="visible"
         >
-          <motion.div variants={itemVariants} className="card p-6">
+          <motion.div variants={itemVariants} className="card p-6 shadow-md">
             <Navigation className="h-8 w-8 text-primary-500 mb-4" />
             <h3 className="font-heading text-lg font-semibold mb-2">Coverage Area</h3>
             <p className="text-gray-600">
@@ -128,7 +128,7 @@ const getIframeSrc = (loc: typeof locations[0]) => {
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="card p-6">
+          <motion.div variants={itemVariants} className="card p-6 shadow-md">
             <Phone className="h-8 w-8 text-primary-500 mb-4" />
             <h3 className="font-heading text-lg font-semibold mb-2">24/7 Support</h3>
             <p className="text-gray-600">
@@ -136,7 +136,7 @@ const getIframeSrc = (loc: typeof locations[0]) => {
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="card p-6">
+          <motion.div variants={itemVariants} className="card p-6 shadow-md">
             <Mail className="h-8 w-8 text-primary-500 mb-4" />
             <h3 className="font-heading text-lg font-semibold mb-2">Easy Booking</h3>
             <p className="text-gray-600">

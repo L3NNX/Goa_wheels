@@ -67,7 +67,7 @@ const VehiclesSection: React.FC = () => {
           {filteredVehicles.map((vehicle) => (
             <div
               key={vehicle.id}
-             className="vehicle-card card scale-95 opacity-0 card-hover flex flex-col justify-between h-full"
+             className="vehicle-card card shadow-md scale-95 opacity-0 card-hover flex flex-col justify-between h-full"
 
             >
               <div className="relative h-60">

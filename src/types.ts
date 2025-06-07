@@ -10,13 +10,15 @@ export interface ServiceType {
 export interface VehicleType {
   id: number;
   name: string;
-  type: 'Car' | 'Bike' | 'Scooter' | 'Premium';
+ type: 'Car' | 'Bike' | 'Scooter' | 'Premium' | 'Hatchback' | 'Sedan' | 'SUV';
   imageUrl: string;
   seats?: number;
   pricePerDay: number;
   pricePerHour: number;
   available: boolean;
   features: string[];
+  price?: string; 
+  
 }
 
 export interface TestimonialType {

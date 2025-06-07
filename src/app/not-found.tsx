@@ -6,15 +6,7 @@ import gsap from 'gsap';
 import { Home, ArrowLeft } from 'lucide-react';
 
 export default function NotFound() {
-  useEffect(() => {
-    gsap.from('.error-animate', {
-      y: 30,
-      opacity: 0,
-      stagger: 0.2,
-      duration: 0.8,
-      ease: 'power2.out',
-    });
-  }, []);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white flex items-center justify-center px-4">
