@@ -11,7 +11,7 @@ const HeroSection: React.FC = () => {
       ref={heroRef}
       className="relative min-h-screen flex items-center justify-center"
       style={{ 
-        backgroundImage: `url('https://images.pexels.com/photos/3601425/pexels-photo-3601425.jpeg')`,
+        backgroundImage: `url('https://images.pexels.com/photos/237272/pexels-photo-237272.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -20,7 +20,7 @@ const HeroSection: React.FC = () => {
       
       <div className="container-custom relative z-10">
         <div ref={contentRef} className="max-w-3xl hero-text text-white">
-          <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+         <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white drop-shadow-lg">
             Explore Goa's Beauty <br/> 
             <span className="text-secondary-300">Your Way</span>
           </h1>

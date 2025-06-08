@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import CTASection from '@/components/CTA';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,13 +21,13 @@ export default function Home() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        const href = this.getAttribute('href');
+
+        const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
         if (!href) return;
-        
+
         const targetElement = document.querySelector(href);
         if (!targetElement) return;
-        
+
         window.scrollTo({
           top: targetElement.getBoundingClientRect().top + window.scrollY - 80,
           behavior: 'smooth'
@@ -60,6 +61,7 @@ export default function Home() {
       <VehiclesSection />
       <LocationsSection />
       <TestimonialsSection />
+      <CTASection />
       <BookingSection />
       <Footer />
     </main>

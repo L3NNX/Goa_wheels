@@ -1,0 +1,31 @@
+export const airportTransfers = [
+  {
+    id: 1,
+    name: "Goa Airport Sedan",
+    image: "/images/sedan.jpg",
+    type: "Sedan",
+    location: "Goa Airport",
+    basePrice: 1200,
+    extraKmRate: 20,
+    waitingCharge: 100,
+    ac: true,
+    seats: 4,
+    transmission: "Automatic",
+    description: "Comfortable sedan for airport pickup and drop.",
+  },
+  {
+    id: 2,
+    name: "SUV Airport Transfer",
+    image: "/images/suv.jpg",
+    type: "SUV",
+    location: "Goa Airport",
+    basePrice: 1800,
+    extraKmRate: 25,
+    waitingCharge: 150,
+    ac: true,
+    seats: 7,
+    transmission: "Automatic",
+    description: "Spacious SUV perfect for group transfers to/from airport.",
+  },
+  // add more airport transfer options here
+];
