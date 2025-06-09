@@ -62,7 +62,6 @@ export default function Home() {
       <LocationsSection />
       <TestimonialsSection />
       <CTASection />
-      <BookingSection />
       <Footer />
     </main>
   );
