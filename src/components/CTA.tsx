@@ -22,9 +22,9 @@ const CTASection: React.FC = () => {
       </div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10 text-center border border-white/20">
+        {/* <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10 text-center border border-white/20"> */}
 
-          <h3 className="font-heading text-3xl sm:text-4xl font-semibold text-gray-900 mb-6 leading-tight">
+          <h3 className="font-heading text-3xl sm:text-4xl text-center font-semibold text-gray-900 mb-6 leading-tight">
             Join Our Happy Customers 
           </h3>
           <p className="text-lg text-gray-600 leading-relaxed mb-8 max-w-3xl mx-auto">
@@ -65,7 +65,7 @@ const CTASection: React.FC = () => {
             </a>
           </div>
 
-        </div>
+        {/* </div> */}
       </div>
 
     

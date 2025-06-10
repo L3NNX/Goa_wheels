@@ -1,98 +1,502 @@
-// components/TestimonialsCarousel.tsx
-import React, { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
-import gsap from 'gsap';
-import { testimonials } from '../data/testimonials';
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import React, { useState } from 'react';
 
-const TestimonialsCarousel: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: true });
+const TestimonialComponent = () => {
+  const [activeQuote, setActiveQuote] = useState(7); // Default active quote is 7
 
-  useEffect(() => {
-    if (inView) {
-      gsap.from('.testimonial-element', {
-        y: 30,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 0.8,
-        ease: 'power2.out',
-      });
+  // Sample data - you can replace with your actual testimonials
+  const testimonials = [
+    {
+      id: 1,
+      name: "JOHN SMITH",
+      image: "http://nanaetben.fr/animation/assets/images/website/Ben-1.png",
+      quote: "Amazing experience with exceptional service and attention to detail. Highly recommended for anyone looking for quality."
+    },
+    {
+      id: 2,
+      name: "SARAH JOHNSON",
+      image: "http://nanaetben.fr/animation/assets/images/website/Ben-2.png",
+      quote: "Outstanding results that exceeded all expectations. The team was professional and delivered on time."
+    },
+    {
+      id: 3,
+      name: "MIKE WILSON",
+      image: "http://nanaetben.fr/animation/assets/images/website/Ben-3.png",
+      quote: "Incredible journey from start to finish. The support provided was comprehensive and truly valuable."
+    },
+    {
+      id: 4,
+      name: "EMMA DAVIS",
+      image: "http://nanaetben.fr/animation/assets/images/website/Nana-4.png",
+      quote: "Revolutionary approach that transformed our perspective completely. Couldn't be happier with the outcome."
+    },
+    {
+      id: 5,
+      name: "ALEX BROWN",
+      image: "http://nanaetben.fr/animation/assets/images/website/Nana-2.png",
+      quote: "Exceptional quality and service that goes above and beyond expectations. Worth every investment made."
+    },
+    {
+      id: 6,
+      name: "LISA TAYLOR",
+      image: "http://nanaetben.fr/animation/assets/images/website/Nana-3.png",
+      quote: "Fantastic experience with remarkable results. The attention to detail was impressive throughout the process."
+    },
+    {
+      id: 7,
+      name: "DAVID MARTINEZ",
+      image: "http://nanaetben.fr/animation/assets/images/website/Nana-1.png",
+      quote: "Perfect solution that delivered exactly what was promised. Professional service with outstanding communication."
     }
-  }, [inView]);
+  ];
 
-  useEffect(() => {
-    gsap.fromTo(
-      '.active-testimonial',
-      { opacity: 0, scale: 0.95 },
-      { opacity: 1, scale: 1, duration: 0.5, ease: 'power2.out' }
-    );
-  }, [activeIndex]);
+  // Group testimonials for left and right sides
+  const leftSideTestimonials = testimonials.slice(0, 3); // First 3
+  const rightSideTestimonials = testimonials.slice(3, 6); // Next 3
+  const activeTestimonial = testimonials.find(t => t.id === activeQuote) || testimonials[6]; // Last one as default
 
-  const next = () => setActiveIndex((prev) => (prev + 1) % testimonials.length);
-  const prev = () => setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  interface Testimonial {
+    id: number;
+    name: string;
+    image: string;
+    quote: string;
+  }
+
+  const handleQuoteClick = (id: number): void => {
+    setActiveQuote(id);
+  };
 
   return (
-    <section id="testimonials" ref={ref} className="py-20 bg-gray-50">
-      <div className="container-custom mx-auto px-4">
-        <div className="text-center mb-12 testimonial-element">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Customer Experiences
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Don't just take our word for it. See what our customers have to say about their experience with GoaWheels.
-          </p>
-        </div>
+    <div>
+      <style jsx>{`
+        h1 {
+          padding: 2vh 0 3vh 0;
+          color: #434C57;
+          line-height: 1.3;
+          font-size: 40px;
+          font-family: 'Amatic SC', cursive;
+          letter-spacing: 2px;
+          padding-bottom: 30px;
+        }
+        
+        .section-eight {
+          padding: 40px 0 0px 0;
+          margin-top: 130px;
+          position: relative;
+        }
+        
+        .op-eight-section {
+          position: relative;
+        }
+        
+        .ocean-2 {
+          height: 5%;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          background: #015871;
+        }
+        
+        .wave-2 {
+          background: url(data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='3' ry='3' stroke='%23333' stroke-width='1' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e) repeat-x;
+          position: absolute;
+          top: -198px;
+          width: 6400px;
+          height: 198px;
+          animation: wave 7s cubic-bezier(.36,.45,.63,.53) infinite;
+          transform: translate3d(0, 0, 0);
+        }
+        
+        .wave-2:nth-of-type(2) {
+          top: -196px;
+          animation: wave 7s cubic-bezier(.36,.45,.63,.53) -.125s infinite, swell 7s ease -1.25s infinite;
+          opacity: 1;
+        }
+        
+        @keyframes wave {
+          0% {
+            margin-left: 0;
+          }
+          100% {
+            margin-left: -1600px;
+          }
+        }
+        
+        @keyframes swell {
+          0%, 100% {
+            transform: translate3d(0,-25px,0);
+          }
+          50% {
+            transform: translate3d(0,5px,0);
+          }
+        }
+        
+        .sec-eight-text-area {
+          text-align: center;
+          padding: 100px 0 240px;
+        }
+        
+        .sec-eight-text-area img {
+          padding: 2vh 0;
+        }
+        
+        .sec-eight-text-area h1 {
+          padding: 2vh 0 3vh 0;
+          color: #434C57;
+          line-height: 1.3;
+          font-size: 40px;
+          font-family: 'Amatic SC', cursive;
+          letter-spacing: 2px;
+          padding-bottom: 30px;
+        }
+        
+        .sec-eight-text-area p {
+          padding: 2vh 0;
+          font-size: 14px;
+          line-height: 1.6;
+          color: #434C57;
+          font-family: 'Maven Pro', sans-serif;
+        }
+        
+        .container-pe-quote {
+          position: absolute;
+          height: 100%;
+          top: 0px;
+          z-index: 1;
+        }
+        
+        .container-pe-quote.left {
+          left: 0px;
+        }
+        
+        .container-pe-quote.right {
+          right: 0px;
+        }
+        
+        .pp-quote {
+          cursor: pointer;
+          position: absolute;
+          border-radius: 100%;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+          animation-name: floating;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+          transform-origin: 50% 1px;
+          opacity: 1;
+          transition: all 2s ease;
+        }
+        
+        .pp-quote img {
+          overflow: hidden;
+          border-radius: 100%;
+          height: 100%;
+          width: 100%;
+          position: relative;
+          z-index: 1;
+        }
+        
+        .pp-quote:after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          height: calc(100% + 5px);
+          width: calc(100% + 5px);
+          border-radius: 100%;
+          background-color: #7fb3e4;
+          transform: translate(-50%, -50%) scale(0.9);
+          transition: all .25s ease;
+        }
+        
+        .pp-quote:hover:after,
+        .pp-quote.active:after {
+          transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .li-quote-1 {
+          height: 104px;
+          width: 104px;
+          left: 15px;
+          top: 95px;
+          animation-duration: 10s;
+          transition-delay: 0.6s;
+        }
+        
+        .li-quote-2 {
+          height: 63px;
+          width: 63px;
+          left: 120px;
+          top: 270px;
+          animation-duration: 12s;
+          transition-delay: 0s;
+        }
+        
+        .li-quote-3 {
+          height: 64px;
+          width: 64px;
+          left: 68px;
+          top: 380px;
+          animation-duration: 6s;
+          transition-delay: 0.2s;
+        }
+        
+        .li-quote-4 {
+          height: 73px;
+          width: 73px;
+          right: -15px;
+          top: 110px;
+          animation-duration: 5s;
+          transition-delay: 0.7s;
+        }
+        
+        .li-quote-5 {
+          height: 73px;
+          width: 73px;
+          right: 28px;
+          top: 265px;
+          animation-duration: 8s;
+          transition-delay: 0.4s;
+        }
+        
+        .li-quote-6 {
+          height: 45px;
+          width: 45px;
+          right: 108px;
+          top: 170px;
+          animation-duration: 7s;
+          transition-delay: 0.2s;
+        }
+        
+        .li-quote-7 {
+          height: 48px;
+          width: 48px;
+          right: 40px;
+          top: 414px;
+          animation-duration: 7s;
+          transition-delay: 0.3s;
+        }
+        
+        @keyframes floating {
+          0% {
+            transform: rotate(0deg) translate(-10px) rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg) translate(-10px) rotate(-360deg);
+          }
+        }
+        
+        .container-quote {
+          position: relative;
+          width: 100%;
+          margin-top: 10px;
+          height: 135px;
+          perspective: 10000px;
+        }
+        
+        .quote {
+          max-width: 520px;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0px;
+          left: 50%;
+          cursor: pointer;
+          text-align: center;
+          transform: translateX(-50%);
+          transition: all 1s cubic-bezier(0.5, -0.01, 0, 1.005);
+        }
+        
+        .quote.hide-bottom {
+          opacity: 0;
+          transform: translateX(-50%) translateY(100%) rotateX(-70deg);
+        }
+        
+        .quote.hide-top {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-100%) rotateX(70deg);
+        }
+        
+        .quote.show {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0%) rotateX(0deg);
+        }
+        
+        .container-dp-name {
+          position: relative;
+          width: 100%;
+          margin-top: 10px;
+          height: 225px;
+          perspective: 10000px;
+          text-align: center;
+        }
+        
+        .box-dpname {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0px;
+          left: 0;
+          cursor: pointer;
+          text-align: center;
+          transition: all 1s cubic-bezier(0.5, -0.01, 0, 1.005);
+        }
+        
+        .box-dpname.hide-dp-bottom {
+          opacity: 0;
+          transform: translateX(0%) translateY(100%) rotateX(-70deg);
+        }
+        
+        .box-dpname.hide-dp-top {
+          opacity: 0;
+          transform: translateX(0%) translateY(-100%) rotateX(70deg);
+        }
+        
+        .box-dpname.look {
+          opacity: 1;
+          transform: translateX(0%) translateY(0%) rotateX(0deg);
+        }
+        
+        @media screen and (max-width: 767px) {
+          .sec-eight-text-area {
+            padding: 10px 0 10px 0;
+          }
+          .container-pe-quote {
+            position: relative;
+            height: 500px;
+            top: 0px;
+            z-index: 1;
+            max-width: 300px;
+            margin: -70px auto 0;
+          }
+        }
+        
+        @media screen and (max-width: 480px) {
+          .li-quote-2 {
+            left: 60px;
+            top: 270px;
+          }
+          .li-quote-6 {
+            right: 100px;
+            top: 179px;
+          }
+          .li-quote-3 {
+            left: 0;
+          }
+          .container-quote {
+            height: 205px;
+            overflow: hidden;
+            overflow-y: auto;
+          }
+          .sec-eight-text-area {
+            padding: 10px 0 100px 0;
+          }
+        }
+      `}</style>
 
-        <div className="max-w-4xl mx-auto testimonial-element">
-          <div className="relative bg-white rounded-xl shadow-lg p-8 mb-10">
-            <Quote className="absolute top-6 left-6 h-10 w-10 text-primary-100 opacity-80" />
-            {testimonials.map((t, i) => (
-              <div
-                key={t.id}
-                className={`flex flex-col md:flex-row items-center gap-8 transition-opacity duration-300 ${i === activeIndex ? 'active-testimonial block' : 'hidden'}`}
-              >
-                <div className="md:w-1/3 flex flex-col items-center">
-                  <div className="w-24 h-24 rounded-full overflow-hidden mb-4">
-                    <img src={t.imageUrl} alt={t.name} className="w-full h-full object-cover" />
+      <section className="op-section op-eight-section section" id="section5">
+      
+        
+        <div className="section-eight">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-wrap -mx-4">
+              {/* Left floating images */}
+              <div className="w-full md:w-1/4 px-4">
+                <div className="container-pe-quote left">
+                  <div 
+                    className={`pp-quote li-quote-1 ${activeQuote === 1 ? 'active' : ''}`}
+                    onClick={() => handleQuoteClick(1)}
+                  >
+                    <img src={testimonials[0].image} alt="" />
                   </div>
-                  <h4 className="font-medium text-lg text-gray-900">{t.name}</h4>
-                  <p className="text-gray-500 text-sm">{t.location}</p>
-                  <div className="flex mt-2">
-                    {[...Array(5)].map((_, j) => (
-                      <Star key={j} className={`h-4 w-4 ${j < t.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} />
+                  <div 
+                    className={`pp-quote li-quote-2 ${activeQuote === 2 ? 'active' : ''}`}
+                    onClick={() => handleQuoteClick(2)}
+                  >
+                    <img src={testimonials[1].image} alt="" />
+                  </div>
+                  <div 
+                    className={`pp-quote li-quote-3 ${activeQuote === 3 ? 'active' : ''}`}
+                    onClick={() => handleQuoteClick(3)}
+                  >
+                    <img src={testimonials[2].image} alt="" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Center content */}
+              <div className="w-full md:w-1/2 px-4">
+                <div className="sec-eight-text-area">
+                  {/* Profile name section */}
+                  <div className="container-dp-name">
+                    {testimonials.map((testimonial) => (
+                      <div 
+                        key={`dp-${testimonial.id}`}
+                        className={`box-dpname dp-name-${testimonial.id} ${
+                          activeQuote === testimonial.id ? 'look' : 
+                          testimonial.id === 4 ? 'hide-dp-bottom' : 'hide-dp-top'
+                        }`}
+                      >
+                        <img src={testimonial.image} alt="" />
+                        <h1>{testimonial.name}</h1>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Quote section */}
+                  <div className="container-quote">
+                    {testimonials.map((testimonial) => (
+                      <div 
+                        key={`quote-${testimonial.id}`}
+                        className={`quote quote-text-${testimonial.id} ${
+                          activeQuote === testimonial.id ? 'show' : 
+                          testimonial.id === 4 ? 'hide-bottom' : 'hide-top'
+                        }`}
+                      >
+                        <img src="http://nanaetben.fr/animation/assets/images/website/quote.png" alt="" />
+                        <p>{testimonial.quote}</p>
+                      </div>
                     ))}
                   </div>
                 </div>
-                <div className="md:w-2/3">
-                  <p className="text-gray-700 italic leading-relaxed">"{t.text}"</p>
+              </div>
+
+              {/* Right floating images */}
+              <div className="w-full md:w-1/4 px-4">
+                <div className="container-pe-quote right">
+                  <div 
+                    className={`pp-quote li-quote-4 ${activeQuote === 4 ? 'active' : ''}`}
+                    onClick={() => handleQuoteClick(4)}
+                  >
+                    <img src={testimonials[3].image} alt="" />
+                  </div>
+                  <div 
+                    className={`pp-quote li-quote-5 ${activeQuote === 5 ? 'active' : ''}`}
+                    onClick={() => handleQuoteClick(5)}
+                  >
+                    <img src={testimonials[4].image} alt="" />
+                  </div>
+                  <div 
+                    className={`pp-quote li-quote-6 ${activeQuote === 6 ? 'active' : ''}`}
+                    onClick={() => handleQuoteClick(6)}
+                  >
+                    <img src={testimonials[5].image} alt="" />
+                  </div>
+                  <div 
+                    className={`pp-quote li-quote-7 ${activeQuote === 7 ? 'active' : ''}`}
+                    onClick={() => handleQuoteClick(7)}
+                  >
+                    <img src={testimonials[6].image} alt="" />
+                  </div>
                 </div>
               </div>
-            ))}
-
-            <div className="absolute -bottom-5 left-1/2 transform -translate-x-1/2 flex space-x-2">
-              <button onClick={prev} className="bg-white rounded-full w-10 h-10 shadow flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-colors">
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button onClick={next} className="bg-white rounded-full w-10 h-10 shadow flex items-center justify-center text-primary-600 hover:bg-primary-50 transition-colors">
-                <ChevronRight className="h-5 w-5" />
-              </button>
+              
             </div>
           </div>
-
-          <div className="flex justify-center space-x-2">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActiveIndex(i)}
-                className={`w-2 h-2 rounded-full transition-all ${i === activeIndex ? 'bg-primary-600 w-6' : 'bg-gray-300'}`}
-              />
-            ))}
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+    </div>
   );
 };
 
-export default TestimonialsCarousel;
+export default TestimonialComponent;
