@@ -13,22 +13,20 @@ const BookingForm: React.FC = () => {
         <button
           type="button"
           onClick={() => setBookingType('pickup')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-            bookingType === 'pickup'
+          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${bookingType === 'pickup'
               ? 'bg-primary-600 text-white shadow-md'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-          }`}
+            }`}
         >
           Pickup & Drop
         </button>
         <button
           type="button"
           onClick={() => setBookingType('rental')}
-          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-            bookingType === 'rental'
+          className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${bookingType === 'rental'
               ? 'bg-primary-600 text-white shadow-md'
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-          }`}
+            }`}
         >
           Vehicle Rental
         </button>
@@ -82,10 +80,9 @@ const BookingForm: React.FC = () => {
                 value={vehicleCategory}
                 onChange={(e) => setVehicleCategory(e.target.value as 'Car' | 'Bike' | 'Scooter' | 'Premium')}
               >
-                <option value="Car">Car</option>
-                <option value="Bike">Bike</option>
-                <option value="Scooter">Scooter</option>
-                <option value="Premium">Premium</option>
+                <option value="Car">Taxi Rental</option>
+                <option value="Bike">Self Drive</option>
+                <option value="Scooter">Bike Rental</option>
               </select>
             </div>
           </div>
@@ -120,19 +117,18 @@ const BookingForm: React.FC = () => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Rental Duration
           </label>
-          <div className="grid grid-cols-2 gap-4">
+          <div>
             <select className="w-full px-3 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
               {[...Array(10)].map((_, i) => (
-                <option key={i + 1} value={i + 1}>{i + 1}</option>
+                <option key={i + 1} value={i + 1}>
+                  {i + 1} {i + 1 === 1 ? 'Day' : 'Days'}
+                </option>
               ))}
-            </select>
-            <select className="w-full px-3 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
-              <option value="hours">Hours</option>
-              <option value="days">Days</option>
             </select>
           </div>
         </div>
       )}
+
 
       {/* Contact Info */}
       <div>
