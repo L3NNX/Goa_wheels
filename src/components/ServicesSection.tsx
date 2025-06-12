@@ -33,43 +33,42 @@ const ServicesSection: React.FC = () => {
         </div>
 
         {/* Services Grid */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
-  {services.map((service) => (
-    <div
-      key={service.id}
-      className="service-card bg-white rounded-lg shadow-card transform translate-y-8 opacity-0 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 min-w-[300px] max-w-[340px] w-full"
-    >
-      <div className="h-52 rounded-t-lg overflow-hidden">
-        <img
-          src={service.imageUrl}
-          alt={service.name}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-        />
-      </div>
-      <div className="p-6">
-        <h3 className="font-heading text-xl font-semibold text-gray-800 mb-2">
-          {service.name}
-        </h3>
-        <p className="text-sm text-gray-600 mb-4">{service.description}</p>
-        <div className="flex justify-between items-center">
-          <span className="text-primary-600 font-semibold text-base">
-            ₹{service.price}
-            <span className="text-sm text-gray-500"> /{service.priceUnit}</span>
-          </span>
-          <a
-            href="#book-now"
-            className="btn-primary hover:bg-accent-500 text-white font-medium px-2 py-1 rounded-sm transition-all hover:shadow-lg inline-flex items-center justify-center"
-          >
-            Book Now <ArrowRight className="ml-1 h-4 w-4" />
-          </a>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className="service-card bg-white rounded-lg shadow-card transform translate-y-8 opacity-0 transition-all duration-300 hover:shadow-card-hover hover:-translate-y-1 min-w-[300px] max-w-[340px] w-full"
+            >
+              <div className="h-52 rounded-t-lg overflow-hidden">
+                <img
+                  src={service.imageUrl}
+                  alt={service.name}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-heading text-xl font-semibold text-gray-800 mb-2">
+                  {service.name}
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">{service.description}</p>
+                <div className="flex justify-between items-center">
+                  <span className="text-primary-600 font-semibold text-base">
+                    ₹{service.price}
+                    <span className="text-sm text-gray-500"> /{service.priceUnit}</span>
+                  </span>
+                  <a
+                    href="#book-now"
+                    className="btn-primary hover:bg-accent-500 text-white font-medium px-2 py-1 rounded-sm transition-all hover:shadow-lg inline-flex items-center justify-center"
+                  >
+                    Book Now <ArrowRight className="ml-1 h-4 w-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </div>
-  ))}
-</div>
 
 
-        {/* CTA Section */}
         <div className="mt-24 bg-gradient-to-r from-primary-700 to-primary-800 rounded-2xl p-10 text-white shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             <div>

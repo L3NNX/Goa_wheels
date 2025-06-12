@@ -10,7 +10,7 @@ export interface ServiceType {
 export interface VehicleType {
   id: number;
   name: string;
- type: 'Car' | 'Bike' | 'Scooter' | 'Premium' | 'Hatchback' | 'Sedan' | 'SUV';
+ type: | 'Taxi' | 'Bike' | 'Self-Drive' ;
   imageUrl: string;
   seats?: number;
   pricePerDay: number;
@@ -41,4 +41,7 @@ export interface LocationType {
     lat: number;
     lng: number;
   };
+   address: string;
+  phone: string;
+  description: string;
 }
