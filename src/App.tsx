@@ -16,11 +16,11 @@ function App() {
   useEffect(() => {
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+        anchor.addEventListener('click', (e) => {~
         e.preventDefault();
         
-        const href = this.getAttribute('href');
-        if (!href) return;
+           const href = anchor.getAttribute('href');
+    if (!href) return;
         
         const targetElement = document.querySelector(href);
         if (!targetElement) return;
